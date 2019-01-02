@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Search Hotel</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+<script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+  <style type="text/css">
+  	table {
+  		display:none;
+  	
+  	}
+
+  </style>
+</head>
+<body>
+	<div class="container" align="center">
+	<h3 align="center">Search For Hotel</h3>
+		<label for="search">Search</label>
+		<input type="text" id="search" name="search" onkeypress="handle(event)">		
+		<button type="button" id="hotelform" >Search</button>
+		<div class="row">
+			<div class="col-md-2"></div>
+			<div class="col-md-4">
+		<select name="pin" id="pin">
+			<option value="">Pin</option>
+		</select>
+	</div>
+	<div class="col-md-4">
+		<select name="type" id="type">
+			<option value="">Type</option>
+</select>
+</div>
+</div>
+	
+
+<table border="1">
+	<thead>
+	<tr >
+		<th>Hotel Name</th>
+		<th>Hotel Address</th>
+		<th>City</th>
+		<th>State</th>
+		<th>Phone</th>
+		<th>Type</th>
+		<th>Minimum Price</th>
+		<th>Maximum Price</th>
+
+
+	</tr>
+</thead>
+<tbody  id="hotel"></tbody>
+
+</table>
+
+</div>
+<script>
+var xmlhttp = new XMLHttpRequest();
+var myObj;
+var hotelResult= [];
+var pinResult = [];
+var typeResult= [];
+var filter=[];
+var flag;
+xmlhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+     myObj = JSON.parse(this.responseText);
+    // console.log(myObj);
+  }
+};
+xmlhttp.open("GET", "http://localhost/hotel_json.txt", true);
+xmlhttp.send();
+
+$("#hotelform").click(function(){
+
+var search = $("#search").val();
+console.log(myObj);
+getKeys(myObj,search);
+$('table').show();
+});
+
+
+function handle(e){
+	if(e.keyCode === 13){
+            e.preventDefault();
+			search =$("#search").val();
+            console.log(myObj);
+            getKeys(myObj,search);
+			$('table').show();
+
+        }
+}
+
+function getKeys(obj, val) {
+hotelResult= [];
+pinResult=[];
+typeResult=[];
+filter=[];
+for (var p in obj) {
+	flag=1;
+  for (var k in obj[p]) {
+// console.log(obj[p][k]);
+
+// console.log(k+"-----------------------------------");
+// console.log(val);
+if ( k != 'Address')
+{
+if(obj[p][k].trim().toLowerCase().indexOf(val.toLowerCase()) !== -1 && flag == 1) {
+	// console.log(true);
+	flag = 0;
+	filter.push(obj[p]);
+	console.log(obj[p].Name);
+	hotelResult.push ("<tr><td>"+obj[p].Name+"</td><td>"+obj[p].Address.line1+"<br>"+obj[p].Address.line2+"</td><td>"+obj[p].City+"</td><td>"+obj[p].State+"</td><td>"+obj[p].phone+"</td><td>"+obj[p].Type+"</td><td>"+obj[p].MinPrice+"</td><td>"+obj[p].MaxPrice+"</td></tr>");
+
+
+	// $("#pin").append("<option>"+obj[p].pincode+"</option>");
+			if(jQuery.inArray("<option value="+obj[p].pincode+">"+obj[p].pincode+"</option>", pinResult) == -1)
+{
+	pinResult.push("<option value="+obj[p].pincode+">"+obj[p].pincode+"</option>");
+}
+		// $("#type").append("<option>"+obj[p].Type+"</option>");
+
+		if(jQuery.inArray("<option value="+obj[p].Type.replace(/ /g,'')+">"+obj[p].Type+"</option>", typeResult) == -1)
+{
+	// console.log("inarray"+jQuery.inArray(obj[p].Type, typeResult));
+	console.log(obj[p].Type);
+		typeResult.push("<option value="+obj[p].Type.replace(/ /g,'')
++">"+obj[p].Type+"</option>");
+	}
+
+
+  } 
+}
+else {
+console.log("address");
+console.log(obj[p][k]);
+if(obj[p][k].line1.trim().toLowerCase().indexOf(val.toLowerCase()) !== -1 || obj[p][k].line2.trim().toLowerCase().indexOf(val.toLowerCase()) !== -1 && flag == 1) {
+	// console.log(true);
+	flag = 0;
+	filter.push(obj[p]);
+	console.log(obj[p].Name);
+	hotelResult.push ("<tr><td>"+obj[p].Name+"</td><td>"+obj[p].Address.line1+"<br>"+obj[p].Address.line2+"</td><td>"+obj[p].City+"</td><td>"+obj[p].State+"</td><td>"+obj[p].phone+"</td><td>"+obj[p].Type+"</td><td>"+obj[p].MinPrice+"</td><td>"+obj[p].MaxPrice+"</td></tr>");
+
+
+	// $("#pin").append("<option>"+obj[p].pincode+"</option>");
+			if(jQuery.inArray("<option value="+obj[p].pincode+">"+obj[p].pincode+"</option>", pinResult) == -1)
+{
+	pinResult.push("<option value="+obj[p].pincode+">"+obj[p].pincode+"</option>");
+}
+		// $("#type").append("<option>"+obj[p].Type+"</option>");
+
+		if(jQuery.inArray("<option value="+obj[p].Type.replace(/ /g,'')+">"+obj[p].Type+"</option>", typeResult) == -1)
+{
+	// console.log("inarray"+jQuery.inArray(obj[p].Type, typeResult));
+	console.log(obj[p].Type);
+		typeResult.push("<option value="+obj[p].Type.replace(/ /g,'')
++">"+obj[p].Type+"</option>");
+	}
+
+
+  }
+
+
+
+
+}
+}
+}
+	$("#hotel").html(hotelResult);
+	$("#pin").html(pinResult);
+	$("#type").html(typeResult);
+	console.log(filter);
+
+}
+
+$("#pin").change(function() {
+
+console.log(hotelResult);
+
+val = $(this).val();
+hotelResult= [];
+pinResult=[];
+typeResult=[];
+for (var p in filter) {
+  for (var k in filter[p]) {
+// console.log(filter[p][k]);
+
+// console.log(k+"-----------------------------------");
+// console.log(val);
+if ( k != 'Address')
+{
+if(filter[p][k].trim() == val ) {
+	// console.log(true);
+	console.log(filter[p].Name);
+	hotelResult.push ("<tr><td>"+filter[p].Name+"</td><td>"+filter[p].Address.line1+"<br>"+filter[p].Address.line2+"</td><td>"+filter[p].City+"</td><td>"+filter[p].State+"</td><td>"+filter[p].phone+"</td><td>"+filter[p].Type+"</td><td>"+filter[p].MinPrice+"</td><td>"+filter[p].MaxPrice+"</td></tr>");
+
+
+  } else {
+  	// console.log(false);
+  }
+}
+}
+}
+	$("#hotel").html(hotelResult);
+	console.log(filter);
+
+
+
+
+
+
+});
+
+$("#type").change(function() {
+
+console.log(hotelResult);
+val = $(this).val();
+
+hotelResult= [];
+pinResult=[];
+typeResult=[];
+for (var p in filter) {
+  for (var k in filter[p]) {
+// console.log(filter[p][k]);
+
+// console.log(k+"-----------------------------------");
+// console.log(val);
+if ( k != 'Address')
+{
+if(filter[p][k].replace(/ /g,'') == val ) {
+	// console.log(true);
+	console.log(filter[p].Name);
+	hotelResult.push ("<tr><td>"+filter[p].Name+"</td><td>"+filter[p].Address.line1+"<br>"+filter[p].Address.line2+"</td><td>"+filter[p].City+"</td><td>"+filter[p].State+"</td><td>"+filter[p].phone+"</td><td>"+filter[p].Type+"</td><td>"+filter[p].MinPrice+"</td><td>"+filter[p].MaxPrice+"</td></tr>");
+
+
+  } else {
+  	// console.log(false);
+  }
+}
+}
+}
+	$("#hotel").html(hotelResult);
+	console.log(filter);
+
+
+
+
+
+
+});
+
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+</body>
+</html>

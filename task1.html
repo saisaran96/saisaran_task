@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Patient Form</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+</head>
+<body>
+<div class="container">
+	<h3 >Patient Form</h3>
+
+<form id="form" >
+
+
+  <div class="row">
+    <div class="col">
+ 
+    <label for="firstname">First Name</label>
+    <input type="text" class="form-control" id="firstname" placeholder="First Name"  required></div>
+    
+    <div class="col">
+ 
+    <label for="lastname">Last Name</label>
+    <input type="text" class="form-control" id="lastname" placeholder="Last Name"  required>
+</div>
+</div>
+
+  <div class="row">
+    <div class="col">
+ 
+    <label for="address">Address</label>
+    <input type="text" class="form-control" id="address" placeholder="Address" required>
+</div>
+</div>
+
+  <div class="row">
+    <div class="col">
+ 
+  	<label for="state">Select State</label>
+    <select class="form-control" id="state" required>
+    	<option value="">State</option>
+
+<option value="Andhra Pradesh">Andhra Pradesh</option>
+<option value="Kerala">Kerala</option>
+<option value="Pondicherry">Pondicherry</option>
+<option value="Tamil Nadu">Tamil Nadu</option>
+
+    </select>
+  </div>
+    <div class="col">
+ 
+  	<label for="City">Select City</label>
+    <select class="form-control" id="City" required>
+          <option value="">City</option>
+      <option value="Chennai">Chennai</option>
+      <option value="Madhurai">Madhuai</option>
+      <option value="Bangalore">Bangalore</option>
+            <option value="Hydrabad">Hydrabad</option>
+
+
+    </select>
+</div>
+ 
+    <div class="col">
+
+    <label for="Pin">Pin</label>
+    <input type="number" min="6" class="form-control" id="Pin" placeholder="Pin" required>
+</div>
+</div>
+
+
+ <div class="row">
+    <div class="col">
+    <label for="Phone">Phone</label>
+    <input type="number" min="10" class="form-control"  id="Phone" placeholder="Phone" required>
+ 
+</div>
+<div class="col">
+    <label for="email">Email</label>
+    <input type="email" class="form-control" id="email" placeholder="Email" required>
+   </div>
+<div class="col">
+
+    <label for="email">Emergency Contact Number</label>
+    <input type="number" class="form-control" id="emergency" placeholder="Emergency Contact Number" required>
+ 
+</div>
+
+</div>
+
+  <div class="row">
+    <div class="col-md-4">
+ 
+    <label for="DOB">DOB</label>
+    <input type="date" class="form-control" id="dob" placeholder="dob"  required>
+  </div>
+<div id="parentDetail" style="display: none;">
+	<div class="row">
+  <div class="col">
+ 
+    <label for="parentName">Parent Name</label>
+    <input type="text" class="form-control" id="parentName" placeholder="Parent Name"   required>
+  </div>
+  <div class="col">
+ 
+    <label for="parentNumber">Parent Number</label>
+    <input type="number" min="10" class="form-control" id="parentNumber" placeholder="Parent Number" required>
+  </div>
+</div>
+</div>
+</div>
+  <div class="row">
+
+    <div class="col">
+  <legend> Gender </legend>
+
+  <div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="gender" id="male" value="male" required>
+  <label class="form-check-label" for="male">Male</label>
+</div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="gender" id="female" value="female" required>
+  <label class="form-check-label" for="female">Female</label>
+</div>
+</div>
+
+    <div class="col">
+  <legend> Marital Status  </legend>
+
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="maritalstatus" id="married" value="married" required>
+  <label class="form-check-label" for="married">married</label>
+</div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="maritalstatus" id="single" value="single" required>
+  <label class="form-check-label" for="single">single</label>
+</div>
+</div>
+</div>
+
+
+
+
+
+   <div class="row">
+
+    <div class="col-md-4">
+    	  <legend> Insurance Available </legend>
+
+    <div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="policy" id="yes" value="yes" required>
+  <label class="form-check-label" for="yes">Yes</label>
+</div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="policy" id="no" value="no" required>
+  <label class="form-check-label" for="no">No</label>
+
+</div>
+</div>
+
+
+
+<div id="policyDetail" style="display: none;">
+	<div class="row">
+  <div class="col">
+ 
+    <label for="providerName">Provider Name</label>
+    <input type="text" class="form-control" id="providerName" placeholder="Provider Name" required>
+  </div>
+  <div class="col">
+ 
+    <label for="policyNumber">Policy Number</label>
+    <input type="text" class="form-control" id="policyNumber" placeholder="policy Number" required>
+  </div>
+</div>
+</div>
+
+</div>
+<input type="submit" id="submit" value="submit">
+</form>
+</div>
+<script type="text/javascript">
+	
+$("#dob").change(function () {
+var dob = $(this).val();
+console.log(dob);
+var currentDate = new Date();
+console.log(currentDate);
+var birthDate = new Date(dob);
+    var age = currentDate.getFullYear() - birthDate.getFullYear();
+    var m = currentDate.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && currentDate.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    console.log(age);
+
+    if(age < 18) {
+    	$("#parentDetail").show();
+    }
+    else {
+    	    	$("#parentDetail").hide();
+
+    }
+
+});
+
+$('input[type=radio][name=policy]').change(function() {
+
+	// alert($(this).val());
+
+	var value = $(this).val();
+
+	if (value == "yes") {
+		$("#policyDetail").show();
+	}
+	else {
+				$("#policyDetail").hide();
+
+	}
+
+});
+
+
+$("#submit").click(function() {
+var firstname = $('#firstname').val();
+var lastname = $('#lastname').val();
+var parentName= $("#parentName").val();
+var phoneNumber= $("#Phone").val();
+var emergency = $("#emergency").val();
+var pincode = $('#pincode').val();
+var name = /^[a-zA-Z]+$/;
+var num = /^\d{10}$/;
+var pin = /^\d{6}$/;
+if (!firstname.match(name) || firstname.length == 0) {
+alert("* For your first name please use alphabets only *"); // This Segment Displays The Validation Rule For Name
+$("#firstname").focus();
+}
+ if (!lastname.match(name) || lastname.length == 0) {
+alert("* For your last name please use alphabets only *"); // This Segment Displays The Validation Rule For Name
+$("#lastname").focus();
+}
+if (!parentName.match(name) || parentName.length == 0) {
+alert("* For your parent name please use alphabets only *"); // This Segment Displays The Validation Rule For Name
+$("#parentName").focus();
+}
+if (!phoneNumber.match(num) || phoneNumber.length == 0) {
+alert("* Phone no is not valid *"); // This Segment Displays The Validation Rule For Name
+$("#Phone").focus();
+}
+if (!emergency.match(num) || emergency.length == 0) {
+alert("*Emergency Phone no is not valid *"); // This Segment Displays The Validation Rule For Name
+$("#emergency").focus();
+}
+if (!pincode.match(num) || pincode.length == 0) {
+alert("*Pin Code is not valid *"); // This Segment Displays The Validation Rule For Name
+$("#pincode").focus();
+}
+});
+
+$(function(){
+    var dtToday = new Date();
+
+    var month = dtToday.getMonth() + 1;
+    var day = dtToday.getDate();
+    var year = dtToday.getFullYear();
+
+    if(month < 10)
+        month = '0' + month.toString();
+    if(day < 10)
+        day = '0' + day.toString();
+
+    var maxDate = year + '-' + month + '-' + day;    
+    $('#dob').attr('max', maxDate);
+});
+
+</script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+</body>
+</html>
